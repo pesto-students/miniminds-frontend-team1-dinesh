@@ -1,3 +1,4 @@
+import { GoogleIcon } from "@/utils/Icons/GoogleIcon";
 import Image from "next/image";
 
 const LoginSection = () => {
@@ -48,9 +49,15 @@ const LoginSection = () => {
       </form>
       <div className="relative flex py-5 items-center">
         <div className="flex-grow border-t border-[#555555]"></div>
-        <span className="flex-shrink mx-4 text-[12px] leading-[15px] font-[400] border-[#555555]">OR</span>
+        <span className="flex-shrink mx-4 text-[12px] leading-[15px] font-[400] border-[#555555]">
+          OR
+        </span>
         <div className="flex-grow border-t border-[#555555]"></div>
       </div>
+      <button className="flex flex-1 py-3 gap-2 justify-center border items-center border-black bg-white w-full rounded-[5px]">
+        <GoogleIcon className="" />
+        <p className="leading-[19px] font-[600] text-[16px]">Login with Google</p>
+      </button>
     </div>
   );
 };
