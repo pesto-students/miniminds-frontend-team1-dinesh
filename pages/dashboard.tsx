@@ -2,6 +2,7 @@ import Sidebar from "@/components/SideBar";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Seo from "@/components/Seo";
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -27,6 +28,7 @@ function classNames(...classes: string[]) {
 const Dashboard = () => {
   return (
     <div className="flex w-full">
+      <Seo />
       <Sidebar />
       <div className="min-h-full max-w-7xl w-full">
         <header className="">
@@ -34,7 +36,9 @@ const Dashboard = () => {
             <h1 className="text-3xl mt-16 font-bold tracking-tight text-gray-900">
               Dashboard
             </h1>
-            <button className="bg-[#28B03D] transition duration-75 hover:bg-[#1f802e]  text-white rounded-lg mt-14 px-4 py-3">+ Create Class</button>
+            <button className="bg-[#28B03D] transition duration-75 hover:bg-[#1f802e]  text-white rounded-lg mt-14 px-4 py-3">
+              + Create Class
+            </button>
           </div>
         </header>
         <main>

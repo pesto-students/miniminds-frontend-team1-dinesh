@@ -1,11 +1,18 @@
+import { useAuth } from "@/context/userContext";
 import { GoogleIcon } from "@/utils/Icons/GoogleIcon";
 import Image from "next/image";
+import { SyntheticEvent } from "react";
 
 const LoginSection = () => {
+  const auth = useAuth();
+  const handleGoogleLogin = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    auth?.signinWithGoogle("/dashboard");
+  };
   return (
     <div className="max-w-[346px] w-full mx-auto pt-28 lg:pt-72 border-gray-700">
       <div className="flex justify-around">
-        <div className="flex  items-center">
+        <div className="flex items-center">
           <Image
             className=""
             src="/assets/miniminds_1.png"
@@ -54,9 +61,14 @@ const LoginSection = () => {
         </span>
         <div className="flex-grow border-t border-[#555555]"></div>
       </div>
-      <button className="flex flex-1 py-3 gap-2 justify-center border items-center border-black bg-white w-full rounded-[5px]">
+      <button
+        onClick={handleGoogleLogin}
+        className="flex flex-1 py-3 gap-2 justify-center border items-center border-black bg-white w-full rounded-[5px]"
+      >
         <GoogleIcon className="" />
-        <p className="leading-[19px] font-[600] text-[16px]">Login with Google</p>
+        <p className="leading-[19px] font-[600] text-[16px]">
+          Login with Google
+        </p>
       </button>
     </div>
   );
