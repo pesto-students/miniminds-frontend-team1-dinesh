@@ -7,7 +7,7 @@ const Sidebar = () => {
   const auth = useAuth();
   return (
     <>
-      <aside className="w-72 h-screen">
+      <aside className="w-72 h-screen sm:block hidden">
         <div className="py-5 px-3 flex flex-col justify-between h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
           <ul className="space-y-2">
             <li>

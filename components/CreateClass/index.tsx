@@ -21,7 +21,7 @@ export default function CreateClass({
     e.preventDefault();
     const data = {
       name: e.currentTarget?.classname?.value,
-      divison: e.currentTarget?.division?.value || "",
+      division: e.currentTarget?.division?.value || "",
       createdBy: auth?.user.uid,
     };
     const res = await createClass(data);

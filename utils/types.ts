@@ -13,3 +13,9 @@ export declare interface UserType {
   provider: string;
   photoUrl: string;
 }
+
+export declare interface ClassType {
+  name: string;
+  division?: string;
+  createdBy: string;
+}

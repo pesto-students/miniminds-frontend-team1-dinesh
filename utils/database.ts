@@ -12,6 +12,7 @@ import {
 import { database } from "../config/firebase";
 
 const usersRef = collection(database, "users");
+const classRef = collection(database, "class");
 
 export async function checkUser(uid: string) {
   const q = query(usersRef, where("uid", "==", uid));
@@ -58,4 +59,14 @@ export async function createClass(data: {
   createdBy: string;
 }) {
   return await addDoc(collection(database, "class"), data);
+}
+
+export async function getClassesById(uid: string) {
+  const q = query(classRef, where("createdBy", "==", uid));
+  const querySnapshot = await getDocs(q);
+  const data: any[] = [];
+  querySnapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data;
 }
