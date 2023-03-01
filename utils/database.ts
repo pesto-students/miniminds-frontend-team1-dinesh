@@ -7,8 +7,9 @@ import {
   setDoc,
   where,
   getDoc,
+  addDoc,
 } from "firebase/firestore";
-import { database } from "./firebase";
+import { database } from "../config/firebase";
 
 const usersRef = collection(database, "users");
 
@@ -49,4 +50,12 @@ export async function updateUser(uid: string, data: any) {
 
 export async function createUser(uid: string, data: any) {
   return await setDoc(doc(database, "users", uid), data, { merge: true });
+}
+
+export async function createClass(data: {
+  name: string;
+  division?: string;
+  createdBy: string;
+}) {
+  return await addDoc(collection(database, "class"), data);
 }

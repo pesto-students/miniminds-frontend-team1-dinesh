@@ -4,10 +4,12 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 import Router from "next/router";
-import { checkUser, createUser, getUser } from "@/config/database";
+import { checkUser, createUser, getUser } from "@/utils/database";
 import { UserType } from "@/utils/types";
 
 const authContext = createContext<{
@@ -15,6 +17,8 @@ const authContext = createContext<{
   loading: boolean;
   signinWithGoogle: any;
   signout: any;
+  createUserwithEmail: any;
+  signInWithEmailPassword: any;
 } | null>(null);
 
 const provider = new GoogleAuthProvider();
@@ -25,6 +29,8 @@ export function AuthProvider({ children }: any) {
     loading: boolean;
     signinWithGoogle: any;
     signout: any;
+    createUserwithEmail: any;
+    signInWithEmailPassword: any;
   } = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
@@ -78,14 +84,69 @@ function useProvideAuth() {
       if (redirect) {
         Router.push(redirect);
       }
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
+
+  const signInWithEmailPassword = async (
+    email: string,
+    password: string,
+    redirect?: string
+  ) => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      if (!response?.user) {
+        return response;
+      }
+      await handleUser(response?.user);
+      if (redirect) {
+        Router.push(redirect);
+      }
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  const createUserwithEmail = async (
+    email: string,
+    password: string,
+    redirect?: string
+  ) => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      if (!response?.user) {
+        return response;
+      }
+      await handleUser(response.user);
+      if (redirect) {
+        Router.push(redirect);
+      }
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
   const signout = async () => {
     await auth.signOut();
     return await handleUser(false);
   };
+
+  useEffect(() => {
+    if (user) {
+      Router.push("/dashboard");
+    } else {
+      Router.push("/")
+    }
+  }, [user]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, handleUser);
@@ -99,6 +160,8 @@ function useProvideAuth() {
     loading,
     signinWithGoogle,
     signout,
+    signInWithEmailPassword,
+    createUserwithEmail,
   };
 }
 

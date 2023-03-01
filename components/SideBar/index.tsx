@@ -1,7 +1,10 @@
+import { useAuth } from "@/context/userContext";
 import Image from "next/image";
 import Link from "next/link";
+import { SyntheticEvent } from "react";
 
 const Sidebar = () => {
+  const auth = useAuth();
   return (
     <>
       <aside className="w-72 h-screen">
@@ -235,7 +238,14 @@ const Sidebar = () => {
             </li> */}
           </ul>
           <div className="pb-8 w-full bg-white dark:bg-gray-800">
-            <button className="text-gray-400 flex p-2 w-full rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+            <button
+              onClick={(e: SyntheticEvent) => {
+                e.preventDefault();
+                auth?.signout();
+                
+              }}
+              className="text-gray-400 flex p-2 w-full rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

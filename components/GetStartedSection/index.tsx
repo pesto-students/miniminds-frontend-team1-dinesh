@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { SyntheticEvent } from "react";
 
 const GetStartedSection = ({ onClick }: { onClick: any }) => {
   return (

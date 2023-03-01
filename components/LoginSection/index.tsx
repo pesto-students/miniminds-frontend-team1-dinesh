@@ -9,6 +9,9 @@ const LoginSection = () => {
     e.preventDefault();
     auth?.signinWithGoogle("/dashboard");
   };
+  const handleEmailLogin = async (e: SyntheticEvent) => {
+
+  };
   return (
     <div className="max-w-[346px] w-full mx-auto pt-28 lg:pt-72 border-gray-700">
       <div className="flex justify-around">
@@ -29,7 +32,7 @@ const LoginSection = () => {
         Helping educators and students to improve their memory and cognitive
         skills through fun and engaging gameplay.
       </p>
-      <form className="mt-9">
+      <form className="mt-9" onSubmit={handleEmailLogin}>
         <div>
           <label className="flex flex-col text-[16px] leading-[19px] font-[400]">
             Email
@@ -50,7 +53,7 @@ const LoginSection = () => {
             className="bg-transparent border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3 text-[16px] font-[400] leading-[19px] w-full rounded-[5px] py"
           />
         </div>
-        <button className="rounded-[5px] bg-[#19B03D] leading-[19px] text-[16px] mt-5 font-[600] text-white border border-[#19B03D] py-3 text-center flex-1 flex justify-center w-full">
+        <button type='submit' className="rounded-[5px] bg-[#19B03D] leading-[19px] text-[16px] mt-5 font-[600] text-white border border-[#19B03D] py-3 text-center flex-1 flex justify-center w-full">
           Login
         </button>
       </form>
