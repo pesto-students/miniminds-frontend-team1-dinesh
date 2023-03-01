@@ -242,7 +242,6 @@ const Sidebar = () => {
               onClick={(e: SyntheticEvent) => {
                 e.preventDefault();
                 auth?.signout();
-                
               }}
               className="text-gray-400 flex p-2 w-full rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
             >

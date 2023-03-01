@@ -15,6 +15,7 @@ export declare interface UserType {
 }
 
 export declare interface ClassType {
+  id?: string;
   name: string;
   division?: string;
   createdBy: string;

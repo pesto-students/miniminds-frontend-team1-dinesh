@@ -66,7 +66,9 @@ export async function getClassesById(uid: string) {
   const querySnapshot = await getDocs(q);
   const data: any[] = [];
   querySnapshot.forEach((doc) => {
-    data.push(doc.data());
+    const d = doc.data();
+    d.id = doc.id;
+    data.push(d);
   });
   return data;
 }
