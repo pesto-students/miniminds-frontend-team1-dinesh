@@ -72,3 +72,16 @@ export async function getClassesById(uid: string) {
   });
   return data;
 }
+
+export async function getClassDataById(classId: string) {
+  const docRef = doc(database, "class", classId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    data.id = docSnap.id;
+    return data;
+  } else {
+    console.log("No such document!");
+    return null;
+  }
+}

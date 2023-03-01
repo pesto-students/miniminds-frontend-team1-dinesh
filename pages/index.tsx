@@ -12,6 +12,11 @@ export default function Home() {
   const router = useRouter();
   const auth = useAuth();
   const [isLoading, setisLoading] = useState(false);
+  useEffect(() => {
+    if (auth?.user) {
+      router.push("/dashboard");
+    }
+  }, [auth?.user]);
 
   return (
     <>

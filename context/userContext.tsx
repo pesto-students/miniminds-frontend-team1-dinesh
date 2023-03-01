@@ -11,6 +11,7 @@ import { auth } from "../config/firebase";
 import Router from "next/router";
 import { checkUser, createUser, getUser } from "@/utils/database";
 import { UserType } from "@/utils/types";
+import { useLocalStorage } from "usehooks-ts";
 
 const authContext = createContext<{
   user: any;
@@ -40,7 +41,7 @@ export const useAuth = () => {
 };
 
 function useProvideAuth() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useLocalStorage<UserType | null>("user", null);
   const [loading, setLoading] = useState(true);
 
   const handleUser = async (rawUser: any) => {
@@ -141,10 +142,8 @@ function useProvideAuth() {
   };
 
   useEffect(() => {
-    if (user) {
-      Router.push("/dashboard");
-    } else {
-      Router.push("/")
+    if (!user) {
+      Router.push("/");
     }
   }, [user]);
 
