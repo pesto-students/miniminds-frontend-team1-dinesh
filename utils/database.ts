@@ -8,6 +8,7 @@ import {
   where,
   getDoc,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { database } from "../config/firebase";
 
@@ -84,4 +85,8 @@ export async function getClassDataById(classId: string) {
     console.log("No such document!");
     return null;
   }
+}
+
+export async function deleteClassById(classId: string) {
+  return await deleteDoc(doc(database, "class", classId));
 }

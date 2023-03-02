@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
     <>
       <aside className="w-72 h-screen sm:block hidden">
-        <div className="py-5 px-3 flex flex-col justify-between h-full bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <div className="py-5 px-3 flex flex-col justify-between h-full bg-white border-r border-gray-300 dark:bg-gray-800 dark:border-gray-700">
           <ul className="space-y-2">
             <li>
               <Image
@@ -25,11 +25,11 @@ const Sidebar = () => {
             <li className="">
               <Link
                 href="/dashboard"
-                className="flex mt-8 items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-700 group"
+                className="flex mt-8 items-center p-2 text-base font-normal text-black hover:text-gray-200 rounded-lg dark:text-white hover:bg-gray-700 group"
               >
                 <svg
                   aria-hidden="true"
-                  className="w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="w-6 h-6 text-gray-600 hover:text-gray-200 transition duration-75 dark:text-gray-400 group-hover:text-gray-100 dark:group-hover:text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -243,7 +243,7 @@ const Sidebar = () => {
                 e.preventDefault();
                 auth?.signout();
               }}
-              className="text-gray-400 flex p-2 w-full rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+              className="text-black hover:text-gray-200 flex p-2 w-full rounded-lg transition duration-75 hover:bg-gray-700 dark:hover:bg-gray-700 dark:text-white group"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -261,15 +261,15 @@ const Sidebar = () => {
               </svg>
               <span className="ml-3">Logout</span>
             </button>
-            <ul className="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
+            <ul className="pt-5 mt-5 space-y-2 border-t border-gray-500 dark:border-gray-700">
               <li>
                 <a
                   href="#"
-                  className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+                  className="flex items-center text-black hover:bg-gray-700 hover:text-gray-200  p-2 text-base font-normal rounded-lg transition duration-75 dark:hover:bg-gray-700 dark:text-white group"
                 >
                   <svg
                     aria-hidden="true"
-                    className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    className="flex-shrink-0 w-6 h-6 text-gray-800 transition duration-75 dark:text-gray-400 group-hover:text-gray-200 dark:group-hover:text-white"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"

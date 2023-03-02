@@ -21,6 +21,7 @@ const Dashboard = () => {
     message: "",
   });
   const getClassesByIdList = async () => {
+    console.log("asdfas");
     try {
       const res = await getClassesById(auth?.user.uid);
       setClasses(res);
@@ -36,7 +37,7 @@ const Dashboard = () => {
     if (auth?.user && !auth?.loading) {
       getClassesByIdList();
     }
-  }, [auth?.user]);
+  }, []);
 
   return (
     <div className="flex w-full text-black">

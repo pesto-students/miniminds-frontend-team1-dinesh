@@ -207,12 +207,12 @@ export function DeleteInactiveIcon(
         y="6"
         width="10"
         height="10"
-        fill="#EDE9FE"
-        stroke="#A78BFA"
+        fill="none"
+        stroke="#27AC3D"
         strokeWidth="2"
       />
-      <path d="M3 6H17" stroke="#A78BFA" strokeWidth="2" />
-      <path d="M8 6V4H12V6" stroke="#A78BFA" strokeWidth="2" />
+      <path d="M3 6H17" stroke="#27AC3D" strokeWidth="2" />
+      <path d="M8 6V4H12V6" stroke="#27AC3D" strokeWidth="2" />
     </svg>
   );
 }
@@ -232,12 +232,12 @@ export function DeleteActiveIcon(
         y="6"
         width="10"
         height="10"
-        fill="#8B5CF6"
-        stroke="#C4B5FD"
+        fill="#28B03F"
+        stroke="#56B028"
         strokeWidth="2"
       />
-      <path d="M3 6H17" stroke="#C4B5FD" strokeWidth="2" />
-      <path d="M8 6V4H12V6" stroke="#C4B5FD" strokeWidth="2" />
+      <path d="M3 6H17" stroke="#56B028" strokeWidth="2" />
+      <path d="M8 6V4H12V6" stroke="#56B028" strokeWidth="2" />
     </svg>
   );
 }
