@@ -4,12 +4,15 @@ import { deleteClassById, getClassDataById } from "@/utils/database";
 import { DeleteActiveIcon, DeleteInactiveIcon } from "@/utils/Icons";
 import { Menu, Transition } from "@headlessui/react";
 import { notification } from "antd";
+import classNames from "classnames";
 import { useRouter } from "next/router";
-import { Fragment, SyntheticEvent } from "react";
+import { Fragment, SyntheticEvent, useState } from "react";
 
 const ClassPage = (props: any) => {
   const { data } = props;
   const router = useRouter();
+  const tabStates = ["New Game", "History", "Students"];
+  const [tabState, setTabState] = useState("New Game");
   return (
     <div className="flex w-full text-black">
       <Seo />
@@ -93,9 +96,30 @@ const ClassPage = (props: any) => {
           </div>
         </header>
         <main>
-          <div className="mx-auto py-6 sm:px-6 lg:px-8">
-            <div className="px-4 py-6 sm:px-0">
-              <div className="justify-items-center sm:grid-cols-2 grid gap-8 lg:grid-cols-3"></div>
+          <div className="mx-auto pb-6 sm:px-6 lg:px-8">
+            <div className="px-4 sm:px-0">
+              <div className="text-sm font-medium mx-auto text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <ul className="flex -mb-px">
+                  {tabStates.map((item, index) => (
+                    <li className="mr-2" key={index}>
+                      <div
+                        onClick={(e: SyntheticEvent) => {
+                          e.preventDefault();
+                          setTabState(item);
+                        }}
+                        className={classNames(
+                          "inline-block cursor-pointer p-4 border-b-2 transition duration-300 ease-in-out border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300",
+                          item === tabState
+                            ? "dark:text-blue-500 dark:border-blue-500 text-green-400 border-green-400 hover:text-green-500 hover:border-green-500"
+                            : ""
+                        )}
+                      >
+                        {item}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </main>
