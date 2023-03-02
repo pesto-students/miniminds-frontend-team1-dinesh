@@ -1,8 +1,9 @@
-import { useRef, Fragment, SyntheticEvent, ChangeEvent } from "react";
+import { useRef, Fragment, SyntheticEvent, ChangeEvent, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { createClass } from "@/utils/database";
 import { useAuth } from "@/context/userContext";
 import { notification } from "antd";
+import { BiLoader } from "react-icons/bi";
 
 export default function CreateClass({
   onClose,
@@ -17,19 +18,26 @@ export default function CreateClass({
 }) {
   const cancelButtonRef = useRef(null);
   const auth = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isLoading) {
+      return;
+    }
     const data = {
       name: e.currentTarget?.classname?.value,
       division: e.currentTarget?.division?.value || "",
       createdBy: auth?.user.uid,
     };
+    setIsLoading(true);
     const res = await createClass(data);
     if (res.id) {
       notification.success({ message: "Successfully created a class!" });
+      setIsLoading(false);
       setShowModal(false);
       onSuccess();
     } else {
+      setIsLoading(false);
       notification.error({ message: "Error! try again." });
     }
   };
@@ -138,6 +146,9 @@ export default function CreateClass({
                           type="submit"
                           className="inline-flex w-full justify-center rounded-md border border-green-600 bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                         >
+                          {isLoading && (
+                            <BiLoader className="animate-spin w-5 h-5 mr-2" />
+                          )}
                           Create
                         </button>
                         <button
