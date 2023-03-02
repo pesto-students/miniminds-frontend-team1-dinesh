@@ -1,5 +1,9 @@
 import { ClassType } from "@/utils/types";
+import { Menu, Transition } from "@headlessui/react";
+import { Dropdown } from "flowbite-react";
 import Link from "next/link";
+import { Fragment, SVGProps, SyntheticEvent } from "react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const ClassCard = ({ data }: { data: ClassType }) => {
   return (
