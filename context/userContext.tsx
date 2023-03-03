@@ -80,6 +80,7 @@ function useProvideAuth() {
 
   const signinWithGoogle = async (redirect?: string) => {
     setLoading(true);
+
     return await signInWithPopup(auth, provider)
       .then(async (response) => {
         await handleUser(response.user);
@@ -124,7 +125,7 @@ function useProvideAuth() {
   ) => {
     setLoading(true);
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
+      const response = await createUserWithEmailAndPassword(auth, email, password);
       if (!response?.user) {
         return response;
       }
