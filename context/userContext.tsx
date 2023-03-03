@@ -12,6 +12,7 @@ import Router from "next/router";
 import { checkUser, createUser, getUser } from "@/utils/database";
 import { UserType } from "@/utils/types";
 import { useLocalStorage } from "usehooks-ts";
+import { FirebaseError } from "firebase/app";
 
 const authContext = createContext<{
   user: any;
@@ -79,17 +80,18 @@ function useProvideAuth() {
 
   const signinWithGoogle = async (redirect?: string) => {
     setLoading(true);
-    try {
-      const response = await signInWithPopup(auth, provider);
-      await handleUser(response.user);
-      if (redirect) {
-        Router.push(redirect);
-      }
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+    return await signInWithPopup(auth, provider)
+      .then(async (response) => {
+        await handleUser(response.user);
+        if (redirect) {
+          Router.push(redirect);
+        }
+        setLoading(false);
+      })
+      .catch((err: FirebaseError) => {
+        setLoading(false);
+        return err;
+      });
   };
 
   const signInWithEmailPassword = async (
@@ -98,20 +100,21 @@ function useProvideAuth() {
     redirect?: string
   ) => {
     setLoading(true);
-    try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      if (!response?.user) {
-        return response;
-      }
-      await handleUser(response?.user);
-      if (redirect) {
-        Router.push(redirect);
-      }
-      setLoading(false);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
+    return await signInWithEmailAndPassword(auth, email, password)
+      .then(async (response) => {
+        if (!response?.user) {
+          return response;
+        }
+        await handleUser(response?.user);
+        if (redirect) {
+          Router.push(redirect);
+        }
+        setLoading(false);
+      })
+      .catch((err: FirebaseError) => {
+        setLoading(false);
+        return err;
+      });
   };
 
   const createUserwithEmail = async (
