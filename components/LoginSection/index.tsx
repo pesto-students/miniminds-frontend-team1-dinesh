@@ -78,7 +78,7 @@ const LoginSection = () => {
     <div
       className={classNames(
         "max-w-[346px] w-full mx-auto  border-gray-700",
-        isSignUp ? "pt-28 lg:pt-64" : "pt-28 lg:pt-72"
+        isSignUp ? "pt-16 lg:pt-64" : "pt-16 lg:pt-72"
       )}
     >
       <div className="flex justify-around">
@@ -184,7 +184,7 @@ const LoginSection = () => {
               id="confirmpassword"
               placeholder="Confirm Password"
               required
-              className="bg-[#E9E1D1] border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3 text-[16px] font-[400] leading-[19px] w-full rounded-[5px] py"
+              className="bg-transparent md:bg-[#E9E1D1] border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3 text-[16px] font-[400] leading-[19px] w-full rounded-[5px] py"
             />
             {showConfirmPassword ? (
               <svg

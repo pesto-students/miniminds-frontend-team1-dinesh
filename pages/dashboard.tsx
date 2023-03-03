@@ -21,7 +21,6 @@ const Dashboard = () => {
     message: "",
   });
   const getClassesByIdList = async () => {
-    console.log("asdfas");
     try {
       const res = await getClassesById(auth?.user.uid);
       setClasses(res);
