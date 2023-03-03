@@ -1,7 +1,9 @@
+import NewGameSection from "@/components/NewGameSection";
 import Seo from "@/components/Seo";
 import Sidebar from "@/components/SideBar";
 import { deleteClassById, getClassDataById } from "@/utils/database";
 import { DeleteActiveIcon, DeleteInactiveIcon } from "@/utils/Icons";
+import { TabState } from "@/utils/types";
 import { Menu, Transition } from "@headlessui/react";
 import { notification } from "antd";
 import classNames from "classnames";
@@ -11,15 +13,15 @@ import { Fragment, SyntheticEvent, useState } from "react";
 const ClassPage = (props: any) => {
   const { data } = props;
   const router = useRouter();
-  const tabStates = ["New Game", "History", "Students"];
-  const [tabState, setTabState] = useState("New Game");
+  const tabStates: TabState[] = ["New Game", "History", "Students"];
+  const [tabState, setTabState] = useState<TabState>("New Game");
   return (
     <div className="flex w-full text-black">
       <Seo />
       <Sidebar />
       <div className="min-h-full max-w-7xl w-full">
-        <header className="">
-          <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
+        <header className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between">
             <div>
               <h1 className="text-3xl mt-16 font-bold tracking-tight text-gray-900">
                 <span className="text-sm text-gray-400">class: </span>
@@ -97,7 +99,7 @@ const ClassPage = (props: any) => {
         </header>
         <main>
           <div className="mx-auto pb-6 sm:px-6 lg:px-8">
-            <div className="px-4 sm:px-0">
+            <div className="px-4 sm:px-0 mb-4 sm:mb-6">
               <div className="text-sm font-medium mx-auto text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                 <ul className="flex -mb-px">
                   {tabStates.map((item, index) => (
@@ -121,6 +123,7 @@ const ClassPage = (props: any) => {
                 </ul>
               </div>
             </div>
+            {tabState === "New Game" ? <NewGameSection /> : <div></div>}
           </div>
         </main>
       </div>
