@@ -20,3 +20,4 @@ export declare interface ClassType {
   division?: string;
   createdBy: string;
 }
+export type TabState = "New Game" | "History" | "Students";

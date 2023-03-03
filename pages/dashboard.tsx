@@ -63,11 +63,20 @@ const Dashboard = () => {
         <main>
           <div className="mx-auto py-6 sm:px-6 lg:px-8">
             <div className="px-4 py-6 sm:px-0">
-              <div className="justify-items-center sm:grid-cols-2 grid gap-8 lg:grid-cols-3">
-                {classes.map((value, index) => {
-                  return <ClassCard data={value} key={index} />;
-                })}
-              </div>
+              {classes.length !== 0 ? (
+                <div className="justify-items-center sm:grid-cols-2 grid gap-8 lg:grid-cols-3">
+                  {classes.map((value, index) => {
+                    return <ClassCard data={value} key={index} />;
+                  })}
+                </div>
+              ) : (
+                <div className="text-center border rounded-lg py-28">
+                  <p className="text-2xl">No class found!</p>
+                  <p className="text-xs text-gray-600">
+                    Create a new class by clicking on {`"`}create class{`"`}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </main>
