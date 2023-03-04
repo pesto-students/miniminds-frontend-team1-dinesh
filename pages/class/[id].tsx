@@ -16,14 +16,14 @@ const ClassPage = (props: any) => {
   const tabStates: TabState[] = ["New Game", "History", "Students"];
   const [tabState, setTabState] = useState<TabState>("New Game");
   return (
-    <div className="flex w-full text-black">
+    <div className="block sm:flex w-full text-black">
       <Seo />
       <Sidebar />
       <div className="min-h-full max-w-7xl w-full">
         <header className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between">
             <div>
-              <h1 className="text-3xl mt-16 font-bold tracking-tight text-gray-900">
+              <h1 className="text-3xl mt-0 sm:mt-16 font-bold tracking-tight text-gray-900">
                 <span className="text-sm text-gray-400">class: </span>
                 {data?.name}
               </h1>
