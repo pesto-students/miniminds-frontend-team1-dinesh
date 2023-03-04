@@ -39,13 +39,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="flex w-full text-black">
+    <div className="sm:flex w-full text-black">
       <Seo />
       <Sidebar />
       <div className="min-h-full max-w-7xl w-full">
         <header className="">
-          <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
-            <h1 className="text-3xl mt-16 font-bold tracking-tight text-gray-900">
+          <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8 flex items-center sm:items-end mt-0 sm:mt-16 justify-between">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               Dashboard
             </h1>
             <button
@@ -53,7 +53,7 @@ const Dashboard = () => {
                 e.preventDefault();
                 setShowCreateClass(!showCreateClass);
               }}
-              className="bg-[#28B03D] transition duration-75 hover:bg-[#1f802e]  text-white rounded-lg mt-14 px-4 py-3"
+              className="bg-[#28B03D] transition duration-75 hover:bg-[#1f802e]  text-white rounded-lg px-4 py-3"
             >
               + Create Class
             </button>
