@@ -36,8 +36,7 @@ export default async function handler(
     .post("https://api.sendinblue.com/v3/smtp/email", message, {
       headers: {
         "content-type": "application/json",
-        "api-key":
-          "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",
+        "api-key": process.env.NEXT_PUBLIC_SENDBLUE_API,
         accept: "application/json",
       },
     })
