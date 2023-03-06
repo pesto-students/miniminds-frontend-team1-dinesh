@@ -14,6 +14,7 @@ import { database } from "../config/firebase";
 
 const usersRef = collection(database, "users");
 const classRef = collection(database, "class");
+const studentRef = collection(database, "student");
 
 export async function checkUser(uid: string) {
   const q = query(usersRef, where("uid", "==", uid));
@@ -89,4 +90,29 @@ export async function getClassDataById(classId: string) {
 
 export async function deleteClassById(classId: string) {
   return await deleteDoc(doc(database, "class", classId));
+}
+
+export async function createStudent(data: {
+  name: string;
+  parentEmail: string;
+  createdBy: string;
+  classId: string;
+  isVerified: boolean;
+}) {
+  return await addDoc(collection(database, "student"), data);
+}
+
+export async function getStudentsById(uid: string) {
+  const q = query(studentRef, where("createdBy", "==", uid));
+  const querySnapshot = await getDocs(q);
+  const data: any[] = [];
+  querySnapshot.forEach((doc) => {
+    const d = doc.data();
+    d.id = doc.id;
+    data.push(d);
+  });
+  return data;
+}
+export async function deleteStudentById(studentId: string) {
+  return await deleteDoc(doc(database, "student", studentId));
 }

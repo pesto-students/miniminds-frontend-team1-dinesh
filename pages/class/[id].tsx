@@ -1,3 +1,4 @@
+import ClassStudentSection from "@/components/ClassStudentSection";
 import NewGameSection from "@/components/NewGameSection";
 import Seo from "@/components/Seo";
 import Sidebar from "@/components/SideBar";
@@ -123,7 +124,10 @@ const ClassPage = (props: any) => {
                 </ul>
               </div>
             </div>
-            {tabState === "New Game" ? <NewGameSection /> : <div></div>}
+            {tabState === "New Game" && <NewGameSection />}
+            {tabState === "Students" && (
+              <ClassStudentSection classId={data.id} />
+            )}
           </div>
         </main>
       </div>
