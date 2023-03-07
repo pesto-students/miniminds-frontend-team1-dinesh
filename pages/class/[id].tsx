@@ -4,14 +4,14 @@ import Seo from "@/components/Seo";
 import Sidebar from "@/components/SideBar";
 import { deleteClassById, getClassDataById } from "@/utils/database";
 import { DeleteActiveIcon, DeleteInactiveIcon } from "@/utils/Icons";
-import { TabState } from "@/utils/types";
+import { TabState, ClassType } from "@/utils/types";
 import { Menu, Transition } from "@headlessui/react";
 import { notification } from "antd";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { Fragment, SyntheticEvent, useState } from "react";
 
-const ClassPage = (props: any) => {
+const ClassPage = (props: { data: ClassType }) => {
   const { data } = props;
   const router = useRouter();
   const tabStates: TabState[] = ["New Game", "History", "Students"];
@@ -69,7 +69,9 @@ const ClassPage = (props: any) => {
                         <button
                           onClick={async (e: SyntheticEvent) => {
                             e.preventDefault();
-                            await deleteClassById(data.id);
+                            if (data?.id) {
+                              await deleteClassById(data?.id || "");
+                            }
                             notification.success({
                               message: "Successfully deleted",
                             });
@@ -126,7 +128,10 @@ const ClassPage = (props: any) => {
             </div>
             {tabState === "New Game" && <NewGameSection />}
             {tabState === "Students" && (
-              <ClassStudentSection classId={data.id} />
+              <ClassStudentSection
+                classId={data.id || ""}
+                studentsIds={data.students || []}
+              />
             )}
           </div>
         </main>

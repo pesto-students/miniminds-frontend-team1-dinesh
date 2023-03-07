@@ -1,6 +1,10 @@
 import { useRef, Fragment, SyntheticEvent, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { deleteStudentById, getStudentsById } from "@/utils/database";
+import {
+  deleteStudentById,
+  getStudentsById,
+  updateClassById,
+} from "@/utils/database";
 import { useAuth } from "@/context/userContext";
 import { BiLoader } from "react-icons/bi";
 import CreateStudentModal from "../CreateStudentModal";
@@ -48,27 +52,25 @@ export default function AddStudentModal({
     getStudents();
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSave = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (isLoading) {
       return;
     }
-    // const data = {
-    //   name: e.currentTarget?.classname?.value,
-    //   division: e.currentTarget?.division?.value || "",
-    //   createdBy: auth?.user.uid,
-    // };
-    //setIsLoading(true);
-    // const res = await createClass(data);
-    // if (res.id) {
-    //   notification.success({ message: "Successfully created a class!" });
-    //   setIsLoading(false);
-    //   setShowModal(false);
-    //   onSuccess();
-    // } else {
-    //   setIsLoading(false);
-    //   notification.error({ message: "Error! try again." });
-    // }
+    setIsLoading(true);
+    const data = selectedStudents.map((item, index) => {
+      return item.id;
+    });
+    const res = await updateClassById(classId, {
+      students: data,
+    });
+    console.log(res);
+    notification.success({ message: "Successfully added the students!" });
+    setIsLoading(false);
+    setShowModal(false);
+    setSelectedStudents([]);
+    setStudents([])
+    onSuccess();
   };
   return (
     <Transition.Root show={showModal} as={Fragment}>
@@ -152,6 +154,13 @@ export default function AddStudentModal({
                   {students.length !== 0 ? (
                     <ul className="my-4 h-44 rounded-lg">
                       {students.map((student, index) => {
+                        let isSelected = false;
+                        const resp = selectedStudents.filter(
+                          (item) => item.id === student.id
+                        );
+                        if (resp.length !== 0) {
+                          isSelected = true;
+                        }
                         return (
                           <li
                             key={index}
@@ -159,12 +168,39 @@ export default function AddStudentModal({
                           >
                             <h1>{student.name}</h1>
                             <div className="flex items-center gap-2">
-                              <button
-                                className="px-3 border py-1 border-green-600 rounded-lg bg-green-200 disabled:opacity-60 disabled:hover:cursor-not-allowed"
-                                disabled={student.isVerified ? false : true}
-                              >
-                                Add Student
-                              </button>
+                              {isSelected ? (
+                                <button
+                                  onClick={(e: SyntheticEvent) => {
+                                    e.preventDefault();
+                                    setSelectedStudents(
+                                      selectedStudents.filter(
+                                        (a) => a.id !== student.id
+                                      )
+                                    );
+                                  }}
+                                  className="px-3 border py-1 border-red-600 rounded-lg bg-red-300 disabled:opacity-60 disabled:hover:cursor-not-allowed"
+                                  disabled={student.isVerified ? false : true}
+                                >
+                                  Remove
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={(e: SyntheticEvent) => {
+                                    e.preventDefault();
+                                    if (isSelected) {
+                                      return;
+                                    }
+                                    setSelectedStudents([
+                                      ...selectedStudents,
+                                      student,
+                                    ]);
+                                  }}
+                                  className="px-3 border py-1 border-green-600 rounded-lg bg-green-300 disabled:opacity-60 disabled:hover:cursor-not-allowed"
+                                  disabled={student.isVerified ? false : true}
+                                >
+                                  Add Student
+                                </button>
+                              )}
                               {!student.isVerified && (
                                 <button
                                   onClick={async (e: SyntheticEvent) => {
@@ -232,12 +268,13 @@ export default function AddStudentModal({
                   <div className="py-3 sm:flex sm:flex-row-reverse">
                     <button
                       type="submit"
+                      onClick={handleOnSave}
                       className="inline-flex w-full justify-center rounded-md border border-green-600 bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     >
                       {isLoading && (
                         <BiLoader className="animate-spin w-5 h-5 mr-2" />
                       )}
-                      Create
+                      Save
                     </button>
                     <button
                       type="button"
