@@ -113,6 +113,24 @@ export async function getStudentsById(uid: string) {
   });
   return data;
 }
+
 export async function deleteStudentById(studentId: string) {
   return await deleteDoc(doc(database, "student", studentId));
+}
+
+export async function getStudentById(uid: string) {
+  const docRef = doc(database, "student", uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    data.id = docSnap.id;
+    return data;
+  } else {
+    console.log("No such document!");
+    return null;
+  }
+}
+export async function updateStudentById(uid: string, data: any) {
+  const ref = doc(database, "student", uid);
+  await updateDoc(ref, data);
 }
