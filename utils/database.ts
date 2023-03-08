@@ -88,6 +88,11 @@ export async function getClassDataById(classId: string) {
   }
 }
 
+export async function updateClassById(uid: string, data: any) {
+  const ref = doc(database, "class", uid);
+  return await updateDoc(ref, data);
+}
+
 export async function deleteClassById(classId: string) {
   return await deleteDoc(doc(database, "class", classId));
 }
