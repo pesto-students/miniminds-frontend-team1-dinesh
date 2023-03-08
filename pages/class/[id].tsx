@@ -113,10 +113,10 @@ const ClassPage = (props: { data: ClassType }) => {
                           setTabState(item);
                         }}
                         className={classNames(
-                          "inline-block cursor-pointer p-4 border-b-2 transition duration-300 ease-in-out border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300",
+                          "inline-block cursor-pointer  p-4 border-b-2 transition duration-300 ease-in-out rounded-t-lg hover:text-gray-600 hover:border-gray-300",
                           item === tabState
-                            ? "dark:text-blue-500 dark:border-blue-500 text-green-400 border-green-400 hover:text-green-500 hover:border-green-500"
-                            : ""
+                            ? "  text-green-400 border-green-400 hover:text-green-500 hover:border-green-500"
+                            : "border-transparent"
                         )}
                       >
                         {item}
