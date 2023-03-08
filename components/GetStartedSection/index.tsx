@@ -8,6 +8,7 @@ const GetStartedSection = ({ onClick }: { onClick: any }) => {
         src="/assets/miniminds_1.png"
         height={190}
         width={190}
+        priority={false}
         alt=""
       />
       <h3 className="text-[24px] font-[600] leading-[29px] text-center mx-auto text-[#555555]">

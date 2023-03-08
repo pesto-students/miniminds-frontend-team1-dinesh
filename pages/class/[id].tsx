@@ -1,16 +1,17 @@
+import ClassStudentSection from "@/components/ClassStudentSection";
 import NewGameSection from "@/components/NewGameSection";
 import Seo from "@/components/Seo";
 import Sidebar from "@/components/SideBar";
 import { deleteClassById, getClassDataById } from "@/utils/database";
 import { DeleteActiveIcon, DeleteInactiveIcon } from "@/utils/Icons";
-import { TabState } from "@/utils/types";
+import { TabState, ClassType } from "@/utils/types";
 import { Menu, Transition } from "@headlessui/react";
 import { notification } from "antd";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { Fragment, SyntheticEvent, useState } from "react";
 
-const ClassPage = (props: any) => {
+const ClassPage = (props: { data: ClassType }) => {
   const { data } = props;
   const router = useRouter();
   const tabStates: TabState[] = ["New Game", "History", "Students"];
@@ -68,7 +69,9 @@ const ClassPage = (props: any) => {
                         <button
                           onClick={async (e: SyntheticEvent) => {
                             e.preventDefault();
-                            await deleteClassById(data.id);
+                            if (data?.id) {
+                              await deleteClassById(data?.id || "");
+                            }
                             notification.success({
                               message: "Successfully deleted",
                             });
@@ -110,10 +113,10 @@ const ClassPage = (props: any) => {
                           setTabState(item);
                         }}
                         className={classNames(
-                          "inline-block cursor-pointer p-4 border-b-2 transition duration-300 ease-in-out border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300",
+                          "inline-block cursor-pointer  p-4 border-b-2 transition duration-300 ease-in-out rounded-t-lg hover:text-gray-600 hover:border-gray-300",
                           item === tabState
-                            ? "dark:text-blue-500 dark:border-blue-500 text-green-400 border-green-400 hover:text-green-500 hover:border-green-500"
-                            : ""
+                            ? "  text-green-400 border-green-400 hover:text-green-500 hover:border-green-500"
+                            : "border-transparent"
                         )}
                       >
                         {item}
@@ -123,7 +126,13 @@ const ClassPage = (props: any) => {
                 </ul>
               </div>
             </div>
-            {tabState === "New Game" ? <NewGameSection /> : <div></div>}
+            {tabState === "New Game" && <NewGameSection />}
+            {tabState === "Students" && (
+              <ClassStudentSection
+                classId={data.id || ""}
+                studentsIds={data.students || []}
+              />
+            )}
           </div>
         </main>
       </div>

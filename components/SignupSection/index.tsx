@@ -24,6 +24,7 @@ const SignupSection = () => {
             className=""
             src="/assets/miniminds_1.png"
             height={93}
+            priority={false}
             width={93}
             alt=""
           />
