@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       <Seo />
-      <main className="k">
+      <main>
         <div className="relative w-full h-screen overflow-hidden bg-[#F6FAF5]">
           <div className="absolute max-w-3xl mx-auto inset-x-0 top-1/2 -translate-y-1/2 hidden lg:block">
             <img src="/assets/background.png" alt="" />

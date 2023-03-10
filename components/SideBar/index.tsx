@@ -28,7 +28,7 @@ const Sidebar = () => {
           />
         </svg>
         <Link href="/" passHref className="text-center mx-auto">
-          <h3 className="text-[24px] font-[600] leading-[29px] text-black">
+          <h3 className="text-[24px] font-semibold leading-[29px] text-black">
             MiniMinds
           </h3>
         </Link>
@@ -129,7 +129,7 @@ const Sidebar = () => {
                 width={190}
                 alt=""
               />
-              <h3 className="text-[24px] font-[600] leading-[29px] text-center mx-auto text-white">
+              <h3 className="text-[24px] font-semibold leading-[29px] text-center mx-auto text-white">
                 MiniMinds
               </h3>
             </li>

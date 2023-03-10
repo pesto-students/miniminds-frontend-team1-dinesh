@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const GetStartedSection = ({ onClick }: { onClick: any }) => {
   return (
-    <div className="max-w-[346px] mt-20 w-full border-secondary">
+    <div className="max-w-[330px] mt-20 w-full border-primary_gray">
       <Image
         className="mx-auto text-center"
         src="/assets/miniminds_1.png"
@@ -11,10 +11,10 @@ const GetStartedSection = ({ onClick }: { onClick: any }) => {
         priority={false}
         alt=""
       />
-      <h3 className="mt-2 text-2xl font-semibold leading-[29px] text-center mx-auto text-secondary">
+      <h3 className="mt-2 text-2xl font-semibold leading-[29px] text-center mx-auto text-primary_black">
         MiniMinds
       </h3>
-      <p className="mx-auto font-medium mt-3 text-xs leading-[15px] text-center text-secondary">
+      <p className="mx-auto font-medium mt-3 text-xs leading-[15px] text-center text-primary_gray">
         Helping educators and students to improve their memory and cognitive
         skills through fun and engaging gameplay.
       </p>

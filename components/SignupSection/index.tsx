@@ -28,19 +28,19 @@ const SignupSection = () => {
             width={93}
             alt=""
           />
-          <h3 className="text-[24px] font-[600] leading-[29px] text-[#555555]">
+          <h3 className="text-[24px] font-semibold leading-[29px] text-primary_gray">
             MiniMinds
           </h3>
         </div>
       </div>
-      <p className="mx-auto font-[500] text-[12px] leading-[15px] text-center text-[#555555]">
+      <p className="mx-auto font-medium text-[12px] leading-[15px] text-center text-primary_gray">
         Helping educators and students to improve their memory and cognitive
         skills through fun and engaging gameplay.
       </p>
       <div>
         <label
           htmlFor="emailId"
-          className="flex flex-col text-[16px] leading-[19px] font-[400]"
+          className="flex flex-col leading-[19px] "
         >
           Email
         </label>
@@ -53,13 +53,13 @@ const SignupSection = () => {
             setEmail(e.currentTarget.value);
           }}
           placeholder="teachername1.gmail.comp"
-          className="bg-transparent border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3 text-[16px] font-[400] leading-[19px] w-full rounded-[5px] py"
+          className="bg-transparent border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3  leading-[19px] w-full rounded py"
         />
       </div>
       <div className="mt-4">
         <label
           htmlFor="password"
-          className="flex flex-col text-[16px] leading-[19px] font-[400]"
+          className="flex flex-col leading-[19px] "
         >
           Password
         </label>
@@ -72,30 +72,30 @@ const SignupSection = () => {
             setpassword(e.currentTarget.value);
           }}
           placeholder="********"
-          className="bg-transparent border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3 text-[16px] font-[400] leading-[19px] w-full rounded-[5px] py"
+          className="bg-transparent border mt-2 border-black text-[#2E2C29] placeholder:text-[#2E2C29] px-4 py-3  leading-[19px] w-full rounded py"
         />
       </div>
       <button
         onClick={(e: any) => {
           e.preventDefault();
         }}
-        className="rounded-[5px] bg-[#19B03D] leading-[19px] text-[16px] mt-5 font-[600] text-white border border-[#19B03D] py-3 text-center flex-1 flex justify-center w-full"
+        className="rounded bg-primary leading-[19px] mt-5 font-semibold text-white border border-primary py-3 text-center flex-1 flex justify-center w-full"
       >
         Login
       </button>
       <div className="relative flex py-5 items-center">
-        <div className="flex-grow border-t border-[#555555]"></div>
-        <span className="flex-shrink mx-4 text-[12px] leading-[15px] font-[400] border-[#555555]">
+        <div className="flex-grow border-t border-primary_gray"></div>
+        <span className="flex-shrink mx-4 text-[12px] leading-[15px]  border-primary_gray">
           OR
         </span>
-        <div className="flex-grow border-t border-[#555555]"></div>
+        <div className="flex-grow border-t border-primary_gray"></div>
       </div>
       <button
         onClick={handleGoogleLogin}
-        className="flex flex-1 py-3 gap-2 justify-center border items-center border-black bg-white w-full rounded-[5px]"
+        className="flex flex-1 py-3 gap-2 justify-center border items-center border-black bg-white w-full rounded"
       >
         <GoogleIcon className="" />
-        <p className="leading-[19px] font-[600] text-[16px]">
+        <p className="leading-[19px] font-semibold">
           Sign up with Google
         </p>
       </button>
