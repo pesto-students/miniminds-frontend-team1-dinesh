@@ -2,20 +2,44 @@ import ClassStudentSection from "@/components/ClassStudentSection";
 import NewGameSection from "@/components/NewGameSection";
 import Seo from "@/components/Seo";
 import Sidebar from "@/components/SideBar";
-import { deleteClassById, getClassDataById } from "@/utils/database";
+import {
+  deleteClassById,
+  getClassDataById,
+  getStudentById,
+} from "@/utils/database";
 import { DeleteActiveIcon, DeleteInactiveIcon } from "@/utils/Icons";
 import { TabState, ClassType } from "@/utils/types";
 import { Menu, Transition } from "@headlessui/react";
 import { notification } from "antd";
 import classNames from "classnames";
 import { useRouter } from "next/router";
-import { Fragment, SyntheticEvent, useState } from "react";
+import { Fragment, SyntheticEvent, useEffect, useState } from "react";
 
 const ClassPage = (props: { data: ClassType }) => {
   const { data } = props;
   const router = useRouter();
   const tabStates: TabState[] = ["New Game", "History", "Students"];
   const [tabState, setTabState] = useState<TabState>("New Game");
+  const [studentsIds, setStudentsIds] = useState<any[]>([]);
+  const getData = async () => {
+    if (!data?.id) {
+      return;
+    }
+    const res = await getClassDataById(data?.id || "");
+    if (!res?.students) {
+      return;
+    }
+    const studentdata: any[] = [];
+    for (let index = 0; index < res?.students.length; index++) {
+      const element = res?.students[index];
+      const stdata = await getStudentById(element);
+      studentdata.push(stdata);
+    }
+    setStudentsIds(studentdata);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="block sm:flex w-full text-black">
       <Seo />
@@ -126,11 +150,16 @@ const ClassPage = (props: { data: ClassType }) => {
                 </ul>
               </div>
             </div>
-            {tabState === "New Game" && <NewGameSection />}
+            {tabState === "New Game" && (
+              <NewGameSection classId={data.id || ""} students={studentsIds} />
+            )}
             {tabState === "Students" && (
               <ClassStudentSection
+                updateStudent={() => {
+                  getData();
+                }}
                 classId={data.id || ""}
-                studentsIds={data.students || []}
+                studentsIds={studentsIds}
               />
             )}
           </div>
