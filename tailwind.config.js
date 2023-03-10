@@ -13,7 +13,13 @@ module.exports = {
     fontFamily: {
       body: ['"Inter"'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#19B03D',
+        secondary: '#555555',
+        link: 'rgb(37 99 235)',
+      },
+    },
   },
   plugins: [require("flowbite/plugin")],
 };

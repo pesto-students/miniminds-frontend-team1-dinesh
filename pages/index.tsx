@@ -21,26 +21,33 @@ export default function Home() {
   return (
     <>
       <Seo />
-      <main>
-        <div className='w-full h-screen overflow-y-scroll lg:h-[1000px] bg-no-repeat bg-center lg:bg-[url("/assets/Rectangle_18.png")]'>
-          {isLoading ? (
-            <>
-              <div className="text-2xl text-black text-center">Loading...</div>
-            </>
-          ) : (
-            <>
-              {showLogin ? (
-                <LoginSection />
+      <main className="k">
+        <div className="relative w-full h-screen overflow-hidden bg-[#F6FAF5]">
+          <div className="absolute max-w-3xl mx-auto inset-x-0 top-1/2 -translate-y-1/2 hidden lg:block">
+            <img src="/assets/background.png" alt="" />
+          </div>
+          <div className='relative w-full h-full'>
+            <div className=" absolute max-w-max mx-auto inset-x-0 top-1/2 -translate-y-1/2">
+              {isLoading ? (
+                <>
+                  <div className="text-2xl text-black text-center">Loading...</div>
+                </>
               ) : (
-                <GetStartedSection
-                  onClick={(e: SyntheticEvent) => {
-                    e.preventDefault();
-                    setShowLogin(true);
-                  }}
-                />
+                <>
+                  {showLogin ? (
+                    <LoginSection />
+                  ) : (
+                    <GetStartedSection
+                      onClick={(e: SyntheticEvent) => {
+                        e.preventDefault();
+                        setShowLogin(true);
+                      }}
+                    />
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </main>
     </>
