@@ -12,6 +12,7 @@ const NewGameSection = ({
 }) => {
   const [sessions, setSessions] = useState<any[]>([]);
   const [showNewGameModal, setShowNewGameModal] = useState(false);
+  const [copied, setCopied] = useState(false);
   const getData = async () => {
     const res = await getSessionByClassId(classId);
     setSessions(res);
@@ -46,26 +47,12 @@ const NewGameSection = ({
           {sessions.length !== 0 ? (
             sessions.map((session, index) => {
               return (
-                <div
+                <SessionList
+                  data={session}
+                  index={index}
+                  sessionId={session.id}
                   key={index}
-                  className="flex py-2 px-4 justify-between items-center"
-                >
-                  <div className="text-lg font-semibold">{index + 1}</div>
-                  <div className="flex">
-                    <button
-                      onClick={(e: SyntheticEvent) => {
-                        e.preventDefault();
-                        navigator.clipboard.writeText(
-                          `${location.origin}/join/${session.id}`
-                        );
-                        notification.info({ message: "Copied to Clipboard" });
-                      }}
-                      className="border px-4 py-2 rounded-lg border-gray-600"
-                    >
-                      copy
-                    </button>
-                  </div>
-                </div>
+                />
               );
             })
           ) : (
@@ -81,7 +68,9 @@ const NewGameSection = ({
       <NewGameModal
         classId={classId}
         onClose={() => {}}
-        onSuccess={() => {}}
+        onSuccess={() => {
+          getData();
+        }}
         setShowModal={setShowNewGameModal}
         showModal={showNewGameModal}
         studentsIds={students}
@@ -90,3 +79,42 @@ const NewGameSection = ({
   );
 };
 export default NewGameSection;
+
+const SessionList = ({
+  index,
+  sessionId,
+  data,
+}: {
+  index: number;
+  sessionId: string;
+  data: any;
+}) => {
+  const [copied, setCopied] = useState(false);
+  return (
+    <div
+      key={index}
+      className="flex border-b py-2 px-4 justify-between items-center"
+    >
+      <div className="text-lg font-semibold">{index + 1}</div>
+      <div className="flex gap-4 md:border-l border-gray-300 md:pl-8">
+        <button
+          onClick={(e: SyntheticEvent) => {
+            e.preventDefault();
+            if (copied) {
+              return;
+            }
+            navigator.clipboard.writeText(
+              `${location.origin}/join/${sessionId}`
+            );
+            notification.info({ message: "Copied to Clipboard" });
+            setCopied(true);
+          }}
+          className="border px-4 py-1 rounded-lg border-gray-600"
+        >
+          {copied ? "copied" : "copy"}
+        </button>
+        <button className="border rounded-lg border-green-600 text-white bg-[#28B03D] px-4 py-1">Go ↗</button>
+      </div>
+    </div>
+  );
+};
