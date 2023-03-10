@@ -126,7 +126,9 @@ const ClassPage = (props: { data: ClassType }) => {
                 </ul>
               </div>
             </div>
-            {tabState === "New Game" && <NewGameSection />}
+            {tabState === "New Game" && (
+              <NewGameSection classId={data.id || ""} studentsIds={data.students || []} />
+            )}
             {tabState === "Students" && (
               <ClassStudentSection
                 classId={data.id || ""}

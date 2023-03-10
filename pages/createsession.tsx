@@ -12,11 +12,10 @@ const CreateSession = () => {
   const [sessionId, setSessionId] = useState("");
 
   const handleCreateSession = async () => {
-    const sessionRef = await addDoc(collection(database, "games"), {});
+    const sessionRef = await addDoc(collection(database, "session"), {});
     const sessionId = sessionRef.id;
-
     try {
-      await setDoc(doc(database, "games", sessionId), {
+      await setDoc(doc(database, "session", sessionId), {
         createdOn: serverTimestamp(),
         players: [],
         board: [],

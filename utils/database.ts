@@ -15,6 +15,7 @@ import { database } from "../config/firebase";
 const usersRef = collection(database, "users");
 const classRef = collection(database, "class");
 const studentRef = collection(database, "student");
+const gameRef = collection(database, "games");
 
 export async function checkUser(uid: string) {
   const q = query(usersRef, where("uid", "==", uid));
@@ -138,4 +139,15 @@ export async function getStudentById(uid: string) {
 export async function updateStudentById(uid: string, data: any) {
   const ref = doc(database, "student", uid);
   await updateDoc(ref, data);
+}
+
+export async function getGames() {
+  const q = query(gameRef);
+  const querySnapshot = await getDocs(q);
+  const games: any[] = [];
+  querySnapshot.forEach((doc) => {
+    console.log(doc.data());
+    games.push(doc.data());
+  });
+  return games;
 }
