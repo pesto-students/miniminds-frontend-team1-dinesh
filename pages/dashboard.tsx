@@ -36,7 +36,7 @@ const Dashboard = () => {
     if (auth?.user && !auth?.loading) {
       getClassesByIdList();
     }
-  }, []);
+  }, [auth?.user]);
 
   return (
     <div className="sm:flex w-full text-black">
