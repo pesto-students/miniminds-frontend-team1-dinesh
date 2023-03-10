@@ -7,33 +7,35 @@ import UploadCsvModal from "../UploadCsvModal";
 const ClassStudentSection = ({
   classId,
   studentsIds,
+  updateStudent,
 }: {
   classId: string;
-  studentsIds: string[];
+  studentsIds: any[];
+  updateStudent: any;
 }) => {
-  const [students, setStudents] = useState<any[]>([]);
+  const [students, setStudents] = useState<any[]>(studentsIds);
   const [showAddStudentModal, setShowAddStudentModal] = useState(false);
   const [showUploadCsvModal, setShowUploadCsvModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const getStudents = async () => {
-    if (isLoading) {
-      return;
-    }
-    setIsLoading(true);
-    const data: any[] = [];
-    for (let index = 0; index < studentsIds.length; index++) {
-      const element = studentsIds[index];
-      const studentdata = await getStudentById(element);
-      data.push(studentdata);
-    }
-    setIsLoading(false);
-    console.log(data);
-    setStudents(data);
-  };
+  // const getStudents = async () => {
+  //   if (isLoading) {
+  //     return;
+  //   }
+  //   setIsLoading(true);
+  //   const data: any[] = [];
+  //   for (let index = 0; index < studentsIds.length; index++) {
+  //     const element = studentsIds[index];
+  //     const studentdata = await getStudentById(element);
+  //     data.push(studentdata);
+  //   }
+  //   setIsLoading(false);
+  //   console.log(data);
+  //   setStudents(data);
+  // };
 
-  useEffect(() => {
-    getStudents();
-  }, []);
+  // useEffect(() => {
+  //   getStudents();
+  // }, []);
   return (
     <div className="w-full px-8 py-8 border border-gray-300 rounded-lg">
       <div className="flex justify-between">
@@ -60,9 +62,11 @@ const ClassStudentSection = ({
         </div>
       </div>
       <div className="border rounded-lg mt-4">
-        {students.length !== 0 ? (
+        {studentsIds.length !== 0 ? (
           <ul className="my-4 rounded-lg">
-            {students.map((student, index) => {
+            {studentsIds.map((student, index) => {
+              console.log(student);
+
               return (
                 <li
                   key={index}
@@ -103,7 +107,7 @@ const ClassStudentSection = ({
           </ul>
         ) : (
           <div className="text-center py-28">
-            <p className="text-2xl">No Sessions!</p>
+            <p className="text-2xl">No Students!</p>
             <p className="text-xs text-gray-600">
               Create a new session by clicking on {`"`}new game{`"`}
             </p>
@@ -113,14 +117,16 @@ const ClassStudentSection = ({
       <AddStudentModal
         classId={classId}
         onClose={() => {}}
-        onSuccess={() => {}}
+        onSuccess={() => {
+          updateStudent();
+        }}
         setShowModal={setShowAddStudentModal}
         showModal={showAddStudentModal}
       />
       <UploadCsvModal
         classId={classId}
-        onClose={() => { }}
-        onSuccess={() => { }}
+        onClose={() => {}}
+        onSuccess={() => {}}
         setShowModal={setShowUploadCsvModal}
         showModal={showUploadCsvModal}
       />

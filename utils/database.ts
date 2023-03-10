@@ -16,6 +16,7 @@ const usersRef = collection(database, "users");
 const classRef = collection(database, "class");
 const studentRef = collection(database, "student");
 const gameRef = collection(database, "games");
+const sessionRef = collection(database, "session");
 
 export async function checkUser(uid: string) {
   const q = query(usersRef, where("uid", "==", uid));
@@ -146,8 +147,21 @@ export async function getGames() {
   const querySnapshot = await getDocs(q);
   const games: any[] = [];
   querySnapshot.forEach((doc) => {
-    console.log(doc.data());
-    games.push(doc.data());
+    const data = doc.data();
+    data.id = doc.id;
+    games.push(data);
   });
   return games;
+}
+
+export async function getSessionByClassId(classId: string) {
+  const q = query(sessionRef, where("classId", "==", classId));
+  const querySnapshot = await getDocs(q);
+  const data: any[] = [];
+  querySnapshot.forEach((doc) => {
+    const d = doc.data();
+    d.id = doc.id;
+    data.push(d);
+  });
+  return data;
 }

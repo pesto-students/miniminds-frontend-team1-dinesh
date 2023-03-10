@@ -1,16 +1,26 @@
+import { getClassDataById, getSessionByClassId } from "@/utils/database";
 import { notification } from "antd";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import NewGameModal from "../NewGameModal";
 
 const NewGameSection = ({
   classId,
-  studentsIds,
+  students,
 }: {
   classId: string;
-  studentsIds: string[];
+  students: any[];
 }) => {
   const [sessions, setSessions] = useState<any[]>([]);
   const [showNewGameModal, setShowNewGameModal] = useState(false);
+  const getData = async () => {
+    const res = await getSessionByClassId(classId);
+    setSessions(res);
+  };
+  useEffect(() => {
+    if (classId) {
+      getData();
+    }
+  }, [classId]);
   return (
     <>
       <div className="w-full px-8 py-8 border border-gray-300 rounded-lg">
@@ -19,7 +29,7 @@ const NewGameSection = ({
           <button
             onClick={(e: SyntheticEvent) => {
               e.preventDefault();
-              if (studentsIds.length !== 0) {
+              if (students.length !== 0) {
                 setShowNewGameModal(true);
               } else {
                 notification.error({
@@ -35,7 +45,28 @@ const NewGameSection = ({
         <div className="border rounded-lg mt-4">
           {sessions.length !== 0 ? (
             sessions.map((session, index) => {
-              return <div key={index}>aefdadsf</div>;
+              return (
+                <div
+                  key={index}
+                  className="flex py-2 px-4 justify-between items-center"
+                >
+                  <div className="text-lg font-semibold">{index + 1}</div>
+                  <div className="flex">
+                    <button
+                      onClick={(e: SyntheticEvent) => {
+                        e.preventDefault();
+                        navigator.clipboard.writeText(
+                          `${location.origin}/join/${session.id}`
+                        );
+                        notification.info({ message: "Copied to Clipboard" });
+                      }}
+                      className="border px-4 py-2 rounded-lg border-gray-600"
+                    >
+                      copy
+                    </button>
+                  </div>
+                </div>
+              );
             })
           ) : (
             <div className="text-center py-28">
@@ -53,7 +84,7 @@ const NewGameSection = ({
         onSuccess={() => {}}
         setShowModal={setShowNewGameModal}
         showModal={showNewGameModal}
-        studentsIds={studentsIds}
+        studentsIds={students}
       />
     </>
   );
