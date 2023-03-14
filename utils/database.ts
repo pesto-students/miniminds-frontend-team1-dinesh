@@ -165,3 +165,8 @@ export async function getSessionByClassId(classId: string) {
   });
   return data;
 }
+
+export async function updateSessionById(sessionId: string, data: any) {
+  const ref = doc(database, "session", sessionId);
+  await updateDoc(ref, data);
+}
