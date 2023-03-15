@@ -113,7 +113,21 @@ const SessionList = ({
         >
           {copied ? "copied" : "copy"}
         </button>
-        <button className="border rounded-lg border-green-600 text-white bg-[#28B03D] px-4 py-1">Go ↗</button>
+        <button
+          onClick={(e: SyntheticEvent) => {
+            e.preventDefault();
+            const win = window.open(
+              `${location.origin}/join/${sessionId}`,
+              "_blank"
+            );
+            if (win !== null) {
+              win.focus();
+            }
+          }}
+          className="border rounded-lg border-green-600 text-white bg-[#28B03D] px-4 py-1"
+        >
+          go ↗
+        </button>
       </div>
     </div>
   );
