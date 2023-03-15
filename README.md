@@ -68,7 +68,7 @@ During our experimentation with unfamiliar technologies, we opted for a contempo
 
 # Authors
 
-- [Devansh Dixit](https://github.com/devanshdixit)
+- [Devanshu Dixit](https://github.com/devanshdixit)
 - [Jay Thakare](https://github.com/jay05thakare)
 
 <br/>
