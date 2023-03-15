@@ -1,6 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, SyntheticEvent } from "react";
 import Card from "@/components/Card";
 import { useLocalStorage } from "usehooks-ts";
+import ReactConfetti from "react-confetti";
+import { NextPage } from "next";
+import { updateSessionById } from "@/utils/database";
 
 const uniqueElementsArray = [
   {
@@ -45,7 +48,8 @@ function shuffleCards(array: any[]) {
   }
   return array;
 }
-export default function JoinPage() {
+export default function JoinPage(props: any) {
+  const { id } = props;
   const [cards, setCards] = useState(
     shuffleCards.bind(null, uniqueElementsArray.concat(uniqueElementsArray))
   );
@@ -59,6 +63,17 @@ export default function JoinPage() {
     Number.POSITIVE_INFINITY
   );
   const timeout: any = useRef(null);
+  const [showConfeti, setShowConfeti] = useState(false);
+  const [height, setHeight] = useState(null);
+  const [width, setWidth] = useState(null);
+  const confetiRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (confetiRef.current) {
+      setHeight(confetiRef.current?.clientHeight);
+      setWidth(confetiRef.current?.clientWidth);
+    }
+  }, []);
 
   const disable = () => {
     setShouldDisableAllCards(true);
@@ -67,9 +82,13 @@ export default function JoinPage() {
     setShouldDisableAllCards(false);
   };
 
-  const checkCompletion = () => {
+  const checkCompletion = async () => {
     if (Object.keys(clearedCards).length === uniqueElementsArray.length) {
       setShowModal(true);
+      setShowConfeti(true);
+      const res = await updateSessionById(id, {
+        isCompleted: true,
+      });
       const highScore: number = Math.min(moves, bestScore);
       setBestScore(highScore);
       localStorage.setItem("bestScore", highScore.toString());
@@ -142,66 +161,71 @@ export default function JoinPage() {
     return null;
   }
   return (
-    <div className="md:h-screen my-8 md:my-0 w-full overflow-y-scroll overflow-x-hidden flex justify-center items-center flex-col">
-      <header>
-        <h3 className="my-4 text-lg text-center">Play the Flip card game</h3>
-        <div className="mt-2 mb-6 text-center">
-          Select two cards with same content consequtively to make them vanish
+    <div
+      ref={confetiRef}
+      className="h-screen my-8 md:my-0 w-full overflow-y-scroll overflow-x-hidden flex justify-center items-center flex-col"
+    >
+      {showConfeti && (
+        <ReactConfetti
+          numberOfPieces={150}
+          width={width || undefined}
+          height={height || undefined}
+        />
+      )}
+      {showModal ? (
+        <div className="max-w-2xl w-full p-4 rounded-lg">
+          <h1 className="text-xl md:text-5xl font-bold text-center">
+            Yay! you have won
+          </h1>
         </div>
-      </header>
-      <div className="border mx-4 border-gray-600 rounded-lg  p-3 shadow-md grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl w-full">
-        {cards.map((card, index) => {
-          return (
-            <Card
-              key={index}
-              card={card}
-              index={index}
-              isDisabled={shouldDisableAllCards}
-              isInactive={checkIsInactive(card)}
-              isFlipped={checkIsFlipped(index)}
-              onClick={handleCardClick}
-            />
-          );
-        })}
-      </div>
-      <footer className="mt-4 border border-gray-600 px-4 py-2 rounded-lg shadow-lg">
-        <div className="flex gap-4">
-          <div className="font-bold text-lg">
-            <span className="text-base font-semibold">Moves:</span> {moves}
-          </div>
-          {bestScore && (
-            <div className="font-bold text-lg">
-              <span className="text-base font-semibold">Best Score:</span>{" "}
-              {bestScore}
+      ) : (
+        <>
+          <header>
+            <h3 className="my-4 text-lg text-center"></h3>
+            <div className="mt-2 mb-6 text-center">
+              Select two cards with same content consequtively to make them
+              vanish
             </div>
-          )}
-        </div>
-        {/* <div className="restart">
-          <button onClick={handleRestart}>Restart</button>
-        </div> */}
-      </footer>
-      {/* <Dialog
-        open={showModal}
-        disableBackdropClick
-        disableEscapeKeyDown
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          Hurray!!! You completed the challenge
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You completed the game in {moves} moves. Your best score is{" "}
-            {bestScore} moves.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleRestart} color="primary">
-            Restart
-          </Button>
-        </DialogActions>
-      </Dialog> */}
+          </header>
+          <div className="border mx-4 border-gray-600 rounded-lg  p-3 shadow-md grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl w-full">
+            {cards.map((card, index) => {
+              return (
+                <Card
+                  key={index}
+                  card={card}
+                  index={index}
+                  isDisabled={shouldDisableAllCards}
+                  isInactive={checkIsInactive(card)}
+                  isFlipped={checkIsFlipped(index)}
+                  onClick={handleCardClick}
+                />
+              );
+            })}
+          </div>
+          <footer className="mt-4 border border-gray-600 px-4 py-2 rounded-lg shadow-lg">
+            <div className="flex gap-4">
+              <div className="font-bold text-lg">
+                <span className="text-base font-semibold">Moves:</span> {moves}
+              </div>
+              {bestScore && (
+                <div className="font-bold text-lg">
+                  <span className="text-base font-semibold">Best Score:</span>{" "}
+                  {bestScore}
+                </div>
+              )}
+            </div>
+          </footer>
+        </>
+      )}
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const { id } = context.query;
+  return {
+    props: {
+      id: id,
+    },
+  };
 }
