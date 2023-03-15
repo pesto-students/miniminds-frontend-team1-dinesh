@@ -18,7 +18,7 @@ import { Fragment, SyntheticEvent, useEffect, useState } from "react";
 const ClassPage = (props: { data: ClassType }) => {
   const { data } = props;
   const router = useRouter();
-  const tabStates: TabState[] = ["New Game", "History", "Students"];
+  const tabStates: TabState[] = ["New Game", "Students"];
   const [tabState, setTabState] = useState<TabState>("New Game");
   const [studentsIds, setStudentsIds] = useState<any[]>([]);
   const getData = async () => {
