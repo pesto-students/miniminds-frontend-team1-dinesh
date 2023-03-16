@@ -19,5 +19,15 @@ export declare interface ClassType {
   name: string;
   division?: string;
   createdBy: string;
+  students?: string[];
 }
 export type TabState = "New Game" | "History" | "Students";
+
+export declare interface StudentType {
+  id: string;
+  name: string;
+  parentEmail: string;
+  createdBy: string;
+  classId: string;
+  isVerified: boolean;
+}
