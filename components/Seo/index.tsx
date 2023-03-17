@@ -5,15 +5,15 @@ const Seo = () => {
   return (
     <>
       <Head>
-        <title>Linkyviz</title>
+        <title>Miniminds</title>
         <meta
           name="description"
-          content="Are you tired of trying to make sense of your website's internal linking structure on a spreadsheet or by manually navigating through pages?"
+          content="Miniminds is a platform that provides memory games for small children. The games are designed to help children improve their memory and cognitive skills. The platform allows children to play memory games with other children, making it a fun and interactive way for them to learn"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           rel="icon"
-          href="https://res.cloudinary.com/dh687c0pq/image/upload/v1674394457/linkyviz_fab_icon_nvkhwb.png"
+          href="https://res.cloudinary.com/dh687c0pq/image/upload/v1677583032/miniminds_1_kuwzry.png"
         />
       </Head>
       <Script
