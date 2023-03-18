@@ -65,7 +65,7 @@ const ClassStudentSection = ({
         {studentsIds.length !== 0 ? (
           <ul className="my-4 rounded-lg">
             {studentsIds.map((student, index) => {
-              console.log(student);
+     
 
               return (
                 <li

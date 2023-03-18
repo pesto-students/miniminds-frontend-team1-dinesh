@@ -35,7 +35,7 @@ export default function UploadCsvModal({
 
 
   const dataHandler = (data: any) => {
-    console.log(data)
+
     setStudents(data)
   }
   const getStudents = async () => {
@@ -63,7 +63,7 @@ export default function UploadCsvModal({
     link.click();
     document.body.removeChild(link);
 
-    console.log(fileUrl)
+
   }
 
 
