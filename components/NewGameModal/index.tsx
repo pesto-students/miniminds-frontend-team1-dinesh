@@ -92,7 +92,7 @@ export default function NewGameModal({
       return;
     }
     setIsLoading(true);
-    console.log({ session });
+
     if (session.gameId === "" || session.studentId === "") {
       notification.warning({ message: "Empty values!" });
       setIsLoading(false);

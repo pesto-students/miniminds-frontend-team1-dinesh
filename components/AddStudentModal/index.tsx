@@ -64,7 +64,6 @@ export default function AddStudentModal({
     const res = await updateClassById(classId, {
       students: data,
     });
-    console.log(res);
     notification.success({ message: "Successfully added the students!" });
     setIsLoading(false);
     setShowModal(false);
